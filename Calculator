@@ -1,0 +1,58 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class Calculator extends JPanel  implements ActionListener
+// can only extend one class so if need more use implements
+{
+	private int sum=0,n1=0,n2=0;
+	private JButton[] barr=new JButton[5];
+	private JTextField tf=new JTextField(20);
+	private String [] caption={"2","3","+","=","C"};
+	private JPanel keypad=new JPanel();
+	
+	public Calculator()
+		{
+			super();// to call the JPanel
+			
+			this.setLayout(new BorderLayout());// setting it to border layout
+			
+			keypad.setLayout(new GridLayout(3,2));// create grid layout for the buttons
+			
+			
+			tf.setEditable(false);
+			this.add(tf,BorderLayout.NORTH);// adding the title to the north border
+			
+			for(int i=0;i<barr.length;i++)
+			{
+				barr[i]=new JButton(caption[i]);
+				keypad.add(barr[i]);
+				barr[i].addActionListener(this);// listen to buttons and find action in this class
+			}
+			this.add(keypad, BorderLayout.CENTER);
+		}
+
+	@Override
+	public void actionPerformed(ActionEvent e) 
+		{
+		  	
+			String x=e.getActionCommand();
+			switch(x)
+			{
+			case "=":n2=Integer.parseInt(tf.getText());
+				sum=n1+n2;
+			    tf.setText(""+sum);
+			    break;
+			case "+": n1=Integer.parseInt(tf.getText());
+					break;
+			case "C": tf.setText("");
+				n1=0;
+				n2=0;
+				sum=0;
+				break;
+			default: tf.setText(x);
+				
+			}
+		
+		}
+}
